@@ -56,7 +56,7 @@ def denoise_audio():
         file.save(input_filepath)
 
         try:
-            denoiser.process_audio_file(input_filepath, output_filepath)
+            denoiser.process_audio_file(input_filepath, output_filepath, auto_scale=True)
             os.remove(input_filepath)
             
             return send_file(output_filepath, mimetype='audio/wav', as_attachment=True, download_name=output_filename)
