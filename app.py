@@ -3,7 +3,6 @@ from flask import Flask, request, send_file, jsonify
 from werkzeug.utils import secure_filename
 import soundfile as sf
 import uuid
-import threading
 from audio_denoiser.AudioDenoiser import AudioDenoiser
 import torch
 import torchaudio
@@ -70,9 +69,4 @@ def denoise_audio():
         return jsonify({"error": "Invalid file type. Allowed types are .wav, .mp3"}), 400
 
 if __name__ == '__main__':
-    flask_thread = threading.Thread(target=app.run, kwargs={
-        "host": "0.0.0.0",
-        "port": 7861
-    })
-    flask_thread.daemon = True
-    flask_thread.start()
+    app.run(host='0.0.0.0', port=7861, debug=False)
